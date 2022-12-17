@@ -1,0 +1,197 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Ubuntu', 'Sans-Serif';
+    color: #fff;
+    overflow-x: hidden;
+    background: url(/registration/img/bg.png) no-repeat center;
+    background-size: cover;
+    height: 100vh;
+}
+
+a{
+    text-decoration: none;
+    color: #ffff;
+}
+
+/* header start */
+
+.header__nav{
+    background-color: #313139;
+}
+
+.header__width{
+    padding-left: 160px;
+    padding-right: 160px;
+}
+
+.header__items{
+    display: flex;
+    justify-content: space-between;
+    font-size: 19px;
+    align-items: center;
+    height: 50px;
+}
+
+/* header end */
+
+/* main start*/
+
+.section{
+    text-align: center;
+}
+
+.logo__items{
+    display: flex;
+    justify-content: center;
+    padding-top: 6rem;
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 0px;
+}
+
+.registry{
+    display: flex;
+    padding-top: 4rem;
+    justify-content: center;
+    text-align: center;
+}
+
+.registry__items{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 29px;
+}
+
+.registry__form{
+    display: flex;
+    padding-top: 3rem;
+    color: #E2E2E2;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+::placeholder{
+    color: rgb(192, 192, 192);
+}
+
+.registry__input{
+    outline: none;
+    background: none;
+    color: #fff;
+    border: hidden;
+    border-bottom: solid;
+}
+
+.registry__button{
+    width: 200px;
+    height: 55px;
+    border: hidden;
+    border-radius:15px;
+    background: #E39929;
+    color: #fff;
+}
+
+.registry__pass{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 1rem;
+    color: rgb(192, 192, 192);
+}
+
+/* main end*/
+
+@media (max-width: 1000px){
+    .header__width{
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+}
+
+@media (max-width: 740px){
+    .header__width{
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+@media (max-width: 650px){
+    .header__nav{
+        text-align: center;
+    }
+
+    .header__width{
+        display: flex;
+        height: 100px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .header__items{
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 400px){
+   .header__width{
+        padding-left: 0px;
+        padding-right: 0px;
+        height: 110px;
+   }
+}
+
+@media (max-width: 370px){
+    .registry__input{
+        width: 250px;
+    }
+}
+
+@media (max-width: 335px){
+   .header__items{
+    gap: 0.5rem;
+   }
+}
+
+@media (max-height: 1300px){
+    .logo__items{
+        padding-top: 10rem;
+    }
+    .registry{
+        padding-top: 10rem;
+    }
+}
+
+@media (max-height: 950px){
+    .logo__items{
+        padding-top: 5rem;
+    }
+    .registry{
+        padding-top: 5rem;
+    }
+}
+
+
+@media (max-height: 740px){
+    .logo__items{
+        padding-top: 3rem;
+    }
+    .registry{
+        padding-top: 2rem;
+    }
+}
+
+@media (max-height: 667px){
+    .logo__items{
+        padding-top: 1rem;
+    }
+    
+    .registry{
+        padding-top: 1rem;
+    }
+}
