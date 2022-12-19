@@ -1,14 +1,87 @@
+import os
+import re
+import hashlib
+
 from django.shortcuts import render
+from django.db import IntegrityError
+
+from .models import Users
 
 # Create your views here.
 
 
 def login(request):
-    return render(request, 'entrance/login.html')
+    data_keys = {
+        'invalid_password': False,
+        'user_name': None,
+    }
+
+    if request.method == 'POST':
+        # переменные с данными из словаря POST
+        name_or_email = request.POST.get('name_or_email')
+        password = request.POST.get('password')
+
+        try:
+            # выборка экземпляра класса по введённому имени/почте
+            if re.match(r'.*@.*', name_or_email):
+                user = Users.objects.get(email=name_or_email)
+            else:
+                user = Users.objects.get(name=name_or_email)
+
+            # получение соли пользователя
+            salt = user.salt
+            # хэширование введённого пароля
+            hash_password = hashlib.pbkdf2_hmac(
+                'sha256',
+                password.encode('utf-8'),
+                salt,
+                100000
+            )
+
+            # проверка на совпадение введённого пароля
+            if hash_password == user.password:
+                data_keys['user_name'] = user.name
+            else:
+                raise IntegrityError
+        except IntegrityError:
+            # Неверное имя или пароль
+            data_keys['invalid_password'] = True
+            return render(request, 'entrance/login.html', context=data_keys)
+
+    return render(request, 'entrance/login.html', context=data_keys)
 
 
 def registration(request):
-    return render(request, 'entrance/registration.html')
+    data_keys = {
+        'exist_person': False,
+        'all_right': False,
+    }
+
+    if request.method == 'POST':
+        # переменные с данными из словаря POST
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        # проверка на уникальность данных
+        try:
+            # хеширование пароля
+            salt = os.urandom(16)
+            hash_password = hashlib.pbkdf2_hmac(
+                'sha256',
+                password.encode('utf-8'),
+                salt,
+                100000
+            )
+
+            # создание экземпляра класса по введённым данным и его запись в БД
+            Users.objects.create(name=name, email=email, password=hash_password, salt=salt)
+            data_keys['all_right'] = True
+        except IntegrityError:
+            # если в БД уже существует введённое имя или пароль
+            data_keys['exist_person'] = True
+            return render(request, 'entrance/registration.html', context=data_keys)
+
+    return render(request, 'entrance/registration.html', context=data_keys)
 
 
 def politics(request):

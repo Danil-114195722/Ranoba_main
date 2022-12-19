@@ -34,11 +34,17 @@
         <div class="registry">
             <div class="registry__items">
                 <h2>Регистрация</h2>
-                <form action="" class="registry__form">
-                    <input type="text" placeholder="Имя" class="registry__input">
-                    <input type="email" placeholder="Почта" class="registry__input">
-                    <input type="password" placeholder="Пароль" class="registry__input">
-                    <button type="submit" class="registry__button">Отправить</button>
+                <form action="" method="POST" class="registry__form">
+                    {% csrf_token %}
+                    <input type="text" name="name" id="name" placeholder="Имя" class="registry__input" required>
+                    <input type="email" name="email" id="email" placeholder="Почта" class="registry__input" required>
+                    <input type="password" name="password" id="password" placeholder="Пароль" class="registry__input" required>
+                    <button type="submit" id="submit" class="registry__button">Отправить</button>
+                    {% if exist_person %}
+                        <p>Такая почта или логин уже существует!</p>
+                    {% elif all_right %}
+                        <p>Ваши данные успешно добавлены</p>
+                    {% endif %}
                 </form>
             </div>
         </div>

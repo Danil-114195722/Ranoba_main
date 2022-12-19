@@ -34,11 +34,16 @@
         <div class="registry">
             <div class="registry__items">
                 <h2>Войти</h2>
-                <form action="" class="registry__form">
-                    <input type="text" placeholder="Имя" class="registry__input">
-                    <input type="email" placeholder="Почта" class="registry__input">
-                    <input type="password" placeholder="Пароль" class="registry__input">
-                    <button type="submit" class="registry__button">Отправить</button>
+                <form action="" method="POST" class="registry__form">
+                    {% csrf_token %}
+                    <input type="text" name="name_or_email" id="name_or_email" placeholder="Имя / Почта" class="registry__input" required>
+                    <input type="password" name="password" id="password" placeholder="Пароль" class="registry__input" required>
+                    <button type="submit" id="submit" class="registry__button">Отправить</button>
+                    {% if invalid_password %}
+                        <p>Неверное имя или пароль!</p>
+                    {% elif user_name %}
+                        <p>Приветствую, {{ user_name }}</p>
+                    {% endif %}
                 </form>
                 <a href="#" class="registry__pass">не помню пароль</a>
             </div>
