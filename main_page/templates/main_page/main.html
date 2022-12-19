@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
+{% load static %}
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/main/css/ranobe.css">
+    <link rel="stylesheet" href='{% static "/main_page/css/ranobe.css" %}'>
     <title>Ranobe</title>
 </head>
 <body>
@@ -15,11 +18,11 @@
                 <ul class="meny__items">
                     <div class="meny__search"> <a href="">Поиск</a></div>
                     <div class="meny__catalog"> <a href="">Каталог</a> </div>
-                    <div class="meny__enter"> <a href="../login/login.html">Войти</a></div>
+                    <div class="meny__enter"> <a href="{% url 'login' %}">Войти</a></div>
                 </ul>
             </div>
             <div class="header__main">
-                <img src="" alt="" class="background__girl">
+                <img src='' alt="" class="background__girl">
                 <div class="main__txt">Добро пожаловать,<br>
                     слушатель !</div>
             </div>
@@ -89,11 +92,11 @@
                             <li>Жанр</li>
                             <li>Автор</li>
                         </ul>
-                        </div>
+                    </div>
             </div>
         </div>
         <div class="block__samurai">
-            <img src="/main/image/samurai.png" alt="" class="samurai__img">
+            <img src='{% static "/main_page/img/samurai.png" %}' alt="" class="samurai__img">
             <div class="genres">
                 <h1>Поиск по жанрам</h1>
                 <h2>жанры на любой вкус !</h2>
@@ -115,10 +118,10 @@
             <div class="connection">
             <h2>Cвязь:            example@gmail.com</h2>
             <ul>
-                <li> <a href=""> <img src="/main/image/iconVK 1.svg" alt=""> </a> </li>
-                <li><a href=""> <img src="/main/image/iconYouTube 1.svg" alt=""> </a></li>
-                <li><a href=""> <img src="/main/image/iconTwitter 1.svg" alt=""> </a></li>
-                <li><a href=""> <img src="/main/image/iconFB 1.svg" alt="" class="fb__connection"> </a></li>
+                <li> <a href=""> <img src='{% static "/main_page/img/iconVK 1.svg" %}' alt=""> </a> </li>
+                <li><a href=""> <img src='{% static "/main_page/img/iconYouTube 1.svg" %}' alt=""> </a></li>
+                <li><a href=""> <img src='{% static "/main_page/img/iconTwitter 1.svg" %}' alt=""> </a></li>
+                <li><a href=""> <img src='{% static "/main_page/img/iconFB 1.svg" %}' alt="" class="fb__connection"> </a></li>
             </ul>
         </div>
             <div class="information">
@@ -131,16 +134,6 @@
                 </ul>
             </div>
         </div>
-
-
-
-
-
-
-
-
-
     </div>
-    
 </body>
 </html>
