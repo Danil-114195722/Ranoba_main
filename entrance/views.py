@@ -9,7 +9,7 @@ from .models import Users
 
 # Create your views here.
 
-
+# вход
 def login(request):
     data_keys = {
         'invalid_password': False,
@@ -51,6 +51,7 @@ def login(request):
     return render(request, 'entrance/login.html', context=data_keys)
 
 
+# регистрация
 def registration(request):
     data_keys = {
         'exist_person': False,
@@ -84,5 +85,6 @@ def registration(request):
     return render(request, 'entrance/registration.html', context=data_keys)
 
 
+# политика конфиденциальности
 def politics(request):
     return render(request, 'entrance/politics.html')
