@@ -5,6 +5,10 @@
     <title>Каталог</title>
 </head>
 <body>
-    <h1>Hello world!</h1>
+    <ol>
+        {% for book in all_books %}
+            <li><a href="{% url 'show_book' name_book=book.title chapter=1 %}">{{ book.title }}</a></li>
+        {% endfor %}
+    </ol>
 </body>
 </html>
