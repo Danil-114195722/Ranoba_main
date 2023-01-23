@@ -7,7 +7,7 @@
 <body>
     <ol>
         {% for book in all_books %}
-            <li><a href="{% url 'show_book' name_book=book.title chapter=1 %}">{{ book.title }}</a></li>
+            <li><a href="{% url 'book_review' book_title=book.title %}">{{ book.title }}</a></li>
         {% endfor %}
     </ol>
 </body>

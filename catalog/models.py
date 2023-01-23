@@ -2,6 +2,7 @@ from transliterate import translit
 from re import sub
 
 from django.db import models
+from django.core.validators import MinValueValidator
 
 
 # Create your models here.
@@ -24,11 +25,13 @@ class Book(models.Model):
     title = models.CharField(max_length=100, null=False)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, null=False)
     text = models.CharField(max_length=150, null=False, default='Пока текст отсутствует, но скоро мы его добавим')
-    chapters = models.IntegerField()
+    chapters = models.IntegerField(validators=(MinValueValidator(0), ))
     cover_picture = models.CharField(max_length=200)
     genre = models.ManyToManyField(Genre)
     likes = models.IntegerField(default=0)
 
     def save(self, *args, **kwargs):
         self.cover_picture = sub('\s+', '_', f'Books/{translit(self.title, reversed=True)}/cover_picture/cover_picture.jpg')
+        self.text = sub('\s+', '_',f'Books/{translit(self.title, reversed=True)}/text')
+
         super(Book, self).save(*args, **kwargs)

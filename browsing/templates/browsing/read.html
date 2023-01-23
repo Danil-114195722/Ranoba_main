@@ -5,15 +5,11 @@
     <title>Чтение</title>
 </head>
 <body>
-    <h1>Книга "{{ book.title }}"</h1>
-    <h3>Жанры:</h3>
-    <ul>
-        {% for one_genre in book.genre.all %}
-            <li>"{{ one_genre }}"</li>
-        {% endfor %}
-    </ul>
-    <hr>
+    <h1>"{{ book.title }}"</h1>
     <h2>Глава {{ chapter }} из {{ book.chapters }}</h2>
-    <img src="../../../../Ranoba_main/{{ book.cover_picture }}" alt="Обложка книги">
+
+<!--    <h1>{{ content_text }}</h1>-->
+    <h1>{{ book_header }}</h1>
+    <h4>{{ content_text }}</h4>
 </body>
 </html>
