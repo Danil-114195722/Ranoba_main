@@ -7,6 +7,9 @@ from . import models
 @admin.register(models.Book)
 class BookAdmin(admin.ModelAdmin):
     list_display = ['title', 'author', 'chapters', 'likes']
+    filter_horizontal = ['genre']
+    exclude = ['cover_picture']
+    # prepopulated_fields = {'cover_picture': ('title', )}
 
 
 @admin.register(models.Genre)

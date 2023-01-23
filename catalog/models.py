@@ -1,3 +1,6 @@
+from transliterate import translit
+from re import sub
+
 from django.db import models
 
 
@@ -22,6 +25,10 @@ class Book(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE, null=False)
     text = models.CharField(max_length=150, null=False, default='Пока текст отсутствует, но скоро мы его добавим')
     chapters = models.IntegerField()
-    cover_picture = models.ImageField(upload_to=f'Ranoba_main/Books/{title}/cover_picture/cover_picture.jpg')
+    cover_picture = models.CharField(max_length=200)
     genre = models.ManyToManyField(Genre)
     likes = models.IntegerField(default=0)
+
+    def save(self, *args, **kwargs):
+        self.cover_picture = sub('\s+', '_', f'Books/{translit(self.title, reversed=True)}/cover_picture/cover_picture.jpg')
+        super(Book, self).save(*args, **kwargs)
