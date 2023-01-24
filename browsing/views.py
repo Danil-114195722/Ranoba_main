@@ -1,3 +1,6 @@
+from re import split as re_split
+from re import sub as re_sub
+from re import compile as re_compile
 from bs4 import BeautifulSoup
 
 from django.shortcuts import render
@@ -16,18 +19,25 @@ def book_review(request, book_title: str):
 
 
 def read(request, name_book: str, chapter: int):
+    # if request.method == 'GET':
+    #     chapter = int(request.GET.get('chosen_chapter'))
+
     book = models.Book.objects.get(title=name_book)
 
-    with open(f'{book.text}/Chapter{chapter}.html', 'r') as chapter_text:
+    with open(f"{book.text}/Chapter{chapter}.html", "r") as chapter_text:
         soup = BeautifulSoup(chapter_text.read(), 'html.parser')
 
     book_header = soup.find('h1').text
-    content_text = soup.find('body').text.replace(book_header, '')
+    book_header_clean = re_split('[.:]', book_header)[-1]
+    content_text = re_split('\s?<br\s?/\s?>\s?',
+                                      re_sub('</?[a-z0-9\s]+>', '',str(soup.find('body')).replace(book_header, '')))
 
     data = {
         'book': book,
         'chapter': chapter,
-        'book_header': book_header,
+        'next_chapter': chapter + 1,
+        'previous_chapter': chapter - 1,
+        'book_header': book_header_clean,
         'content_text': content_text,
     }
     return render(request, 'browsing/read.html', context=data)

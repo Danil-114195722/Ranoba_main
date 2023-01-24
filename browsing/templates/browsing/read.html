@@ -5,11 +5,41 @@
     <title>Чтение</title>
 </head>
 <body>
+    <h3><a href="{% url 'catalog' %}">Каталог</a></h3>
+    <h3><a href="{% url 'book_review' book_title=book.title %}">Перейти в описание книги</a></h3>
+
     <h1>"{{ book.title }}"</h1>
     <h2>Глава {{ chapter }} из {{ book.chapters }}</h2>
 
-<!--    <h1>{{ content_text }}</h1>-->
+    {% if next_chapter <= book.chapters %}
+        <h5><a href="{% url 'read_book' name_book=book.title chapter=next_chapter %}">Следующая глава</a></h5>
+    {% else %}
+        <br>
+    {% endif %}
+    {% if previous_chapter > 0 %}
+        <h5><a href="{% url 'read_book' name_book=book.title chapter=previous_chapter %}">Предыдущая глава</a></h5>
+    {% else %}
+        <br>
+    {% endif %}
+
+<!--    <form action="{% url 'read_book' name_book=book.title chapter=previous_chapter %}" method="GET">-->
+<!--        {% csrf_token %}-->
+<!--        <input type="number" name="chosen_chapter" id="chosen_chapter" placeholder="выбрать главу">-->
+<!--        <button type="submit" id="submit">читать</button>-->
+<!--    </form>-->
+
     <h1>{{ book_header }}</h1>
-    <h4>{{ content_text }}</h4>
+    <br>
+    {% for one_paragraph in content_text %}
+        <h3>{{ one_paragraph }}</h3>
+    {% endfor %}
+
+    {% if next_chapter <= book.chapters %}
+        <h5><a href="{% url 'read_book' name_book=book.title chapter=next_chapter %}">Следующая глава</a></h5>
+    {% endif %}
+    {% if previous_chapter > 0 %}
+        <h5><a href="{% url 'read_book' name_book=book.title chapter=previous_chapter %}">Предыдущая глава</a></h5>
+    {% endif %}
+    <h2>Глава {{ chapter }} из {{ book.chapters }}</h2>
 </body>
 </html>
