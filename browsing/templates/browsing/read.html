@@ -5,28 +5,50 @@
     <title>Чтение</title>
 </head>
 <body>
-    <h3><a href="{% url 'catalog' %}">Каталог</a></h3>
-    <h3><a href="{% url 'book_review' book_title=book.title %}">Перейти в описание книги</a></h3>
+    <a href="{% url 'catalog' %}">
+        <input type="submit" name="catalog" id="catalog" value="Каталог"/>
+    </a>
+
+    <form action="{% url 'book_review' %}" method="GET">
+        <input name="book" id="book" value="{{ book.title }}" hidden=""/>
+        <button type="submit">Перейти в описание книги</button>
+    </form>
 
     <h1>"{{ book.title }}"</h1>
-    <h2>Глава {{ chapter }} из {{ book.chapters }}</h2>
 
-    {% if next_chapter <= book.chapters %}
-        <h5><a href="{% url 'read_book' name_book=book.title chapter=next_chapter %}">Следующая глава</a></h5>
-    {% else %}
-        <br>
-    {% endif %}
-    {% if previous_chapter > 0 %}
-        <h5><a href="{% url 'read_book' name_book=book.title chapter=previous_chapter %}">Предыдущая глава</a></h5>
-    {% else %}
-        <br>
-    {% endif %}
+    <form action="" method="GET">
+        <input name="name_book" id="name_book" value="{{ book.title }}" hidden=""/>
 
-<!--    <form action="{% url 'read_book' name_book=book.title chapter=previous_chapter %}" method="GET">-->
-<!--        {% csrf_token %}-->
-<!--        <input type="number" name="chosen_chapter" id="chosen_chapter" placeholder="выбрать главу">-->
-<!--        <button type="submit" id="submit">читать</button>-->
-<!--    </form>-->
+        {% if previous_chapter > 0 %}
+            <i>Предыдущая глава</i>
+            <a href="{% url 'read_book' %}">
+                <input type="submit" name="chapter" id="previous_chapter" value="{{ previous_chapter }}"/>
+            </a>
+        {% else %}
+            <br>
+        {% endif %}
+
+        <div>
+            <h2>Глава {{ chapter }} из {{ book.chapters }}</h2>
+        </div>
+
+        {% if next_chapter <= book.chapters %}
+            <i>Следующая глава</i>
+            <a href="{% url 'read_book' %}">
+                <input type="submit" name="chapter" id="next_chapter" value="{{ next_chapter }}"/>
+            </a>
+        {% else %}
+            <br>
+        {% endif %}
+    </form>
+
+    <br>
+
+    <form action="{% url 'read_book' %}" method="GET">
+        <input name="name_book" id="name_book_choose_chapter" value="{{ book.title }}" hidden=""/>
+        <input name="chapter" id="chosen_chapter" placeholder="выбрать главу" >
+        <button type="submit">читать</button>
+    </form>
 
     <h1>{{ book_header }}</h1>
     <br>
@@ -34,12 +56,6 @@
         <h3>{{ one_paragraph }}</h3>
     {% endfor %}
 
-    {% if next_chapter <= book.chapters %}
-        <h5><a href="{% url 'read_book' name_book=book.title chapter=next_chapter %}">Следующая глава</a></h5>
-    {% endif %}
-    {% if previous_chapter > 0 %}
-        <h5><a href="{% url 'read_book' name_book=book.title chapter=previous_chapter %}">Предыдущая глава</a></h5>
-    {% endif %}
     <h2>Глава {{ chapter }} из {{ book.chapters }}</h2>
 </body>
 </html>

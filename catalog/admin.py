@@ -6,8 +6,12 @@ from . import models
 
 @admin.register(models.Book)
 class BookAdmin(admin.ModelAdmin):
-    list_display = ['title', 'author', 'chapters', 'likes']
-    list_editable = ['author', 'chapters', 'likes']
+    list_display = [
+        'title', 'author', 'chapters', 'year', 'completeness', 'likes'
+    ]
+    list_editable = [
+        'author', 'chapters', 'year', 'completeness', 'likes'
+    ]
     filter_horizontal = ['genre']
     readonly_fields = ['cover_picture', 'text']
     ordering = ['title']
@@ -17,6 +21,7 @@ class BookAdmin(admin.ModelAdmin):
 class GenreAdmin(admin.ModelAdmin):
     list_display = ['name']
     ordering = ['name']
+    list_per_page = 10
 
 
 @admin.register(models.Author)

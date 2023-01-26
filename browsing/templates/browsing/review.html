@@ -2,10 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>one_book.title</title>
+    <title>{{ one_book.title }}</title>
 </head>
 <body>
-    <h3><a href="{% url 'catalog' %}">Каталог</a></h3>
+    <a href="{% url 'catalog' %}">
+        <input type="submit" name="catalog" id="catalog" value="Каталог"/>
+    </a>
 
     <h1>Книга "{{ one_book.title }}"</h1>
     <h3>Жанр:</h3>
@@ -16,13 +18,20 @@
     </ul>
     <hr>
     <h2>Всего глав: {{ one_book.chapters }}</h2>
+    <h4>Год выпуска: {{ one_book.year|default:"не указан" }}</h4>
     <h4>Статус: {{ one_book.completeness }}</h4>
 
     <img src="../../../../Ranoba_main/{{ book.cover_picture }}" alt="Обложка книги">
 <!--    <img src='data:{{ picture }}' alt="Обложка книги">-->
 <!--    <img src='data:image/jpg;base8,{{ picture }}' alt="Обложка книги">-->
+
     <hr>
-    <h2><a href="{% url 'read_book' name_book=one_book.title chapter=1 %}">Читать</a></h2>
+    <form action="{% url 'read_book' %}" method="GET">
+        <input name="name_book" id="name_book" value="{{ one_book.title }}" hidden=""/>
+        <input name="chapter" id="chapter" value="1" hidden=""/>
+        <button type="submit">Читать</button>
+    </form>
+
     <h2><a href="{% url 'listen_audio' name_audio=one_book.title chapter=1 %}">Слушать</a></h2>
 </body>
 </html>

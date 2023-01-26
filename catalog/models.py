@@ -33,6 +33,7 @@ class Book(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE, null=False)
     text = models.CharField(max_length=150, null=False)
     chapters = models.IntegerField(validators=(MinValueValidator(0), ))
+    year = models.IntegerField(null=True, blank=True, default=2015)
     completeness = models.CharField(max_length=12, choices=COMPLETENESS_CHOICES, default=INC)
     cover_picture = models.CharField(max_length=200)
     genre = models.ManyToManyField(Genre)

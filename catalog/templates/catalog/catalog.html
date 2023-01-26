@@ -7,7 +7,12 @@
 <body>
     <ol>
         {% for book in all_books %}
-            <li><a href="{% url 'book_review' book_title=book.title %}">{{ book.title }}</a></li>
+            <li>
+                <form action="{% url 'book_review' %}" method="GET">
+                    <input name="book" id="book" value="{{ book.title }}" hidden=""/>
+                    <button type="submit">{{ book.title }}</button>
+                </form>
+            </li>
         {% endfor %}
     </ol>
 </body>

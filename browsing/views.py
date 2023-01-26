@@ -9,7 +9,10 @@ from catalog import models
 
 # Create your views here.
 
-def book_review(request, book_title: str):
+def book_review(request):
+    if request.method == 'GET':
+        book_title = request.GET.get('book')
+
     one_book = models.Book.objects.get(title=book_title)
 
     data = {
@@ -18,9 +21,10 @@ def book_review(request, book_title: str):
     return render(request, 'browsing/review.html', context=data)
 
 
-def read(request, name_book: str, chapter: int):
-    # if request.method == 'GET':
-    #     chapter = int(request.GET.get('chosen_chapter'))
+def read(request):
+    if request.method == 'GET':
+        name_book = request.GET.get('name_book')
+        chapter = int(request.GET.get('chapter'))
 
     book = models.Book.objects.get(title=name_book)
 
