@@ -13,7 +13,7 @@ class BookAdmin(admin.ModelAdmin):
         'author', 'chapters', 'year', 'completeness', 'likes'
     ]
     filter_horizontal = ['genre']
-    readonly_fields = ['cover_picture', 'text']
+    # readonly_fields = ['cover_picture', 'text']
     ordering = ['title']
 
 

@@ -125,6 +125,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "main_page/static/"),
     os.path.join(BASE_DIR, "entrance/static/"),
+    os.path.join(BASE_DIR, "Books/"),
 ]
 
 # Default primary key field type

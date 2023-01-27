@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+
+{% load static %}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,6 +13,8 @@
     </a>
 
     <h1>Книга "{{ one_book.title }}"</h1>
+    <img src="{% static 'Luchshij_rezhisser/cover_picture/luchshiy_rezhissyor.jpg' %}" alt="Обложка книги"/>
+
     <h3>Жанр:</h3>
     <ul>
         {% for one_genre in one_book.genre.all %}
@@ -20,10 +25,6 @@
     <h2>Всего глав: {{ one_book.chapters }}</h2>
     <h4>Год выпуска: {{ one_book.year|default:"не указан" }}</h4>
     <h4>Статус: {{ one_book.completeness }}</h4>
-
-    <img src="../../../../Ranoba_main/{{ book.cover_picture }}" alt="Обложка книги">
-<!--    <img src='data:{{ picture }}' alt="Обложка книги">-->
-<!--    <img src='data:image/jpg;base8,{{ picture }}' alt="Обложка книги">-->
 
     <hr>
     <form action="{% url 'read_book' %}" method="GET">

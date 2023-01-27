@@ -42,7 +42,7 @@ class Book(models.Model):
     def save(self, *args, **kwargs):
         self.translit_title = sub('\s+', '_', translit(self.title, reversed=True))
 
-        self.cover_picture = f'Books/{self.translit_title}/cover_picture/cover_picture.jpg'
+        self.cover_picture = f'{self.translit_title}/cover_picture/cover_picture.jpg'
         self.text = f'Books/{self.translit_title}/text'
 
         try:
