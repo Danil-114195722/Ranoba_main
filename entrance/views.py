@@ -5,7 +5,8 @@ import hashlib
 from django.shortcuts import render
 from django.db import IntegrityError
 
-from .models import Users
+from .models import User
+
 
 # Create your views here.
 
@@ -24,13 +25,13 @@ def login(request):
         try:
             # выборка экземпляра класса по введённому имени/почте
             if re.match(r'.*@.*', name_or_email):
-                user = Users.objects.get(email=name_or_email)
+                user = User.objects.get(email=name_or_email)
             else:
-                user = Users.objects.get(name=name_or_email)
+                user = User.objects.get(name=name_or_email)
 
             # получение соли пользователя
             salt = user.salt
-            # хэширование введённого пароля
+            # хеширование введённого пароля
             hash_password = hashlib.pbkdf2_hmac(
                 'sha256',
                 password.encode('utf-8'),
@@ -39,7 +40,7 @@ def login(request):
             )
 
             # проверка на совпадение введённого пароля
-            if hash_password == user.password:
+            if str(hash_password) == user.password:
                 data_keys['user_name'] = user.name
             else:
                 raise IntegrityError
@@ -75,7 +76,7 @@ def registration(request):
             )
 
             # создание экземпляра класса по введённым данным и его запись в БД
-            Users.objects.create(name=name, email=email, password=hash_password, salt=salt)
+            User.objects.create(name=name, email=email, password=hash_password, salt=salt)
             data_keys['all_right'] = True
         except IntegrityError:
             # если в БД уже существует введённое имя или пароль

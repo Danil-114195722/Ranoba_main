@@ -1,6 +1,6 @@
-from re import split as re_split
-from re import sub as re_sub
-from re import compile as re_compile
+from re import split as re_split, \
+    sub as re_sub, \
+    compile as re_compile
 from bs4 import BeautifulSoup
 
 from django.shortcuts import render

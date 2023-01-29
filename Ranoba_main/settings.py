@@ -80,8 +80,12 @@ WSGI_APPLICATION = 'Ranoba_main.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ranoba_db',
+        'USER':'pp_ranoba_danil',
+        'PASSWORD':'ranoba23',
+        'HOST':'localhost',
+        'PORT':'3360', # you can find port in xampp control panel(mysql)
     }
 }
 
