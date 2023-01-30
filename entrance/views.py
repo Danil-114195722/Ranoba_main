@@ -4,6 +4,7 @@ import hashlib
 
 from django.shortcuts import render
 from django.db import IntegrityError
+from django.core.exceptions import ObjectDoesNotExist
 
 from .models import User
 
@@ -43,8 +44,8 @@ def login(request):
             if str(hash_password) == user.password:
                 data_keys['user_name'] = user.name
             else:
-                raise IntegrityError
-        except IntegrityError:
+                raise ObjectDoesNotExist
+        except ObjectDoesNotExist:
             # Неверное имя или пароль
             data_keys['invalid_password'] = True
             return render(request, 'entrance/login.html', context=data_keys)
