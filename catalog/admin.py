@@ -31,7 +31,12 @@ class BookAdmin(admin.ModelAdmin):
     ]
 
     filter_horizontal = ['genre']
-    list_filter = ['author', 'genre', 'year', 'completeness',  ]
+    list_filter = [
+        'author',
+        'genre',
+        'year',
+        'completeness',
+    ]
 
     actions = ['make_complete', ]
     search_fields = ['title', ]
@@ -40,7 +45,9 @@ class BookAdmin(admin.ModelAdmin):
 
     @admin.action(description='Сделать завершёнными')
     def make_complete(self, request, qset: QuerySet):
-        count_updated = qset.update(completeness=models.Book.CPL)
+        count_updated = qset.update(
+            completeness=models.Book.CPL
+        )
 
         self.message_user(
             request,

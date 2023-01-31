@@ -39,8 +39,8 @@
                     <input type="text" name="name_or_email" id="name_or_email" placeholder="Имя / Почта" class="registry__input" required>
                     <input type="password" name="password" id="password" placeholder="Пароль" class="registry__input" required>
                     <button type="submit" id="submit" class="registry__button">Отправить</button>
-                    {% if invalid_password %}
-                        <p>Неверное имя или пароль!</p>
+                    {% if invalid_parameter %}
+                        <p>{{ invalid_parameter }}</p>
                     {% elif user_name %}
                         <p>Приветствую, {{ user_name }}</p>
                     {% endif %}

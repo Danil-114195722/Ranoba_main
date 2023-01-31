@@ -11,10 +11,17 @@ from .models import User
 
 # Create your views here.
 
+class InvalidUserName(Exception):
+    pass
+
+class InvalidPassword(Exception):
+    pass
+
+
 # вход
 def login(request):
     data_keys = {
-        'invalid_password': False,
+        'invalid_parameter': None,
         'user_name': None,
     }
 
@@ -24,11 +31,15 @@ def login(request):
         password = request.POST.get('password')
 
         try:
-            # выборка экземпляра класса по введённому имени/почте
-            if re.match(r'.*@.*', name_or_email):
-                user = User.objects.get(email=name_or_email)
-            else:
-                user = User.objects.get(name=name_or_email)
+            try:
+                # выборка экземпляра класса по введённому имени/почте
+                if re.match(r'.*@.*', name_or_email):
+                    user = User.objects.get(email=name_or_email)
+                else:
+                    user = User.objects.get(name=name_or_email)
+            except:
+                # если пользователя с таким именем/почтой не существует
+                raise InvalidUserName
 
             # получение соли пользователя
             salt = user.salt
@@ -44,10 +55,15 @@ def login(request):
             if str(hash_password) == user.password:
                 data_keys['user_name'] = user.name
             else:
-                raise ObjectDoesNotExist
-        except ObjectDoesNotExist:
-            # Неверное имя или пароль
-            data_keys['invalid_password'] = True
+                raise InvalidPassword
+        except InvalidUserName:
+            # Неверное имя/почта
+            data_keys['invalid_parameter'] = 'Неверное имя или почта'
+            return render(request, 'entrance/login.html', context=data_keys)
+
+        except InvalidPassword:
+            # Неверный пароль
+            data_keys['invalid_parameter'] = 'Неверный пароль'
             return render(request, 'entrance/login.html', context=data_keys)
 
     return render(request, 'entrance/login.html', context=data_keys)
