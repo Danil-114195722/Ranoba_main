@@ -25,6 +25,7 @@
     <h2>Всего глав: {{ one_book.chapters }}</h2>
     <h4>Год выпуска: {{ one_book.year|default:"не указан" }}</h4>
     <h4>Статус: {{ one_book.completeness }}</h4>
+    <h4>Обновлено: {{ one_book.update_time }}</h4>
 
     <hr>
     <form action="{% url 'read_book' %}" method="GET">

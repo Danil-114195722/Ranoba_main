@@ -6,6 +6,12 @@ from .models import User
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ['name', 'email']
-    exclude = ['password', 'salt']
+    list_display = [
+        'name',
+        'email',
+    ]
+    exclude = [
+        'password',
+        'salt',
+    ]
     ordering = ['name']
