@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-_&e0(i+g@%r1svtw^ls$8-qtf2tgey8#6$q07d34z%bvb83hi-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['5.101.153.248']
+# ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -78,17 +79,29 @@ WSGI_APPLICATION = 'Ranoba_main.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# для локалки
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'ranoba_db',
+#         'USER':'pp_ranoba_danil',
+#         'PASSWORD':'ranoba23',
+#         'HOST':'localhost',
+#         'PORT':'3360', # you can find port in xampp control panel(mysql)
+#     }
+# }
+
+# для хоста
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ranoba_db',
-        'USER':'pp_ranoba_danil',
-        'PASSWORD':'ranoba23',
-        'HOST':'localhost',
-        'PORT':'3360', # you can find port in xampp control panel(mysql)
+        'NAME': 'anesrnli_ranoba',
+        'USER':'anesrnli_ranoba',
+        'PASSWORD':'ranoba_db123',
+        'HOST':'5.101.153.248',
+        # 'PORT':'3360', # you can find port in xampp control panel(mysql)
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -125,6 +138,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/home/a/anesrnli/site.anesrnli.beget.tech/public_html/static'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "main_page/static/"),
