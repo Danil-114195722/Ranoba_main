@@ -98,7 +98,7 @@ DATABASES = {
         'NAME': 'anesrnli_ranoba',
         'USER':'anesrnli_ranoba',
         'PASSWORD':'ranoba_db123',
-        'HOST':'5.101.153.248',
+        'HOST':'m2.spectre.beget.com',
         # 'PORT':'3360', # you can find port in xampp control panel(mysql)
     }
 }

@@ -13,6 +13,7 @@
     </a>
 
     <h1>Книга "{{ one_book.title }}"</h1>
+    <h3>Автор: {{ one_book.author }}</h3>
     <img src="{% static 'Luchshij_rezhisser/cover_picture/luchshiy_rezhissyor.jpg' %}" alt="Обложка книги"/>
 
     <h3>Жанр:</h3>
@@ -26,8 +27,12 @@
     <h4>Год выпуска: {{ one_book.year|default:"не указан" }}</h4>
     <h4>Статус: {{ one_book.completeness }}</h4>
     <h4>Обновлено: {{ one_book.update_time }}</h4>
-
     <hr>
+
+    <h3>Описание:</h3>
+    <h4>{{ one_book.description|default:"не добавлено" }}</h4>
+    <hr>
+
     <form action="{% url 'read_book' %}" method="GET">
         <input name="name_book" id="name_book" value="{{ one_book.title }}" hidden=""/>
         <input name="chapter" id="chapter" value="1" hidden=""/>

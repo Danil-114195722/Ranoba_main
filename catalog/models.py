@@ -32,6 +32,7 @@ class Book(models.Model):
 
     title = models.CharField(max_length=100, null=False)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, null=False)
+    description = models.TextField()
     text = models.CharField(max_length=150, null=False)
     chapters = models.IntegerField(validators=(
         MinValueValidator(0),
