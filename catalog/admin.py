@@ -19,13 +19,13 @@ class BookAdmin(admin.ModelAdmin):
     ]
     list_editable = [
         'author',
-        'chapters',
         'year',
         'completeness',
         'likes',
     ]
     readonly_fields = [
         'update_time',
+        'chapters',
         # 'cover_picture',
         'text',
     ]

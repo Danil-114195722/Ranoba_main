@@ -55,17 +55,25 @@ class Book(models.Model):
     ))
 
     def save(self, *args, **kwargs):
+        # транслитим название книги
         self.translit_title = sub('\s+', '_', translit(self.title, reversed=True))
 
         try:
+            # создаём каталоги для хранения глав и картинки обложки
             os.makedirs(f"{os.getcwd()}/Books/{self.translit_title}/cover_picture")
             os.mkdir(f"{os.getcwd()}/Books/{self.translit_title}/text")
 
             # self.cover_picture = f'{self.translit_title}/cover_picture/cover_picture.jpg'
+            # создаём путь к хранящимся главам
             self.text = f'Books/{self.translit_title}/text'
-            self.update_time = now()
+        # если запись уже была создана, а сейчас только обновилась
         except:
             print('Such directory already exists')
+
+        # обновляем время обновления записи в бд
+        self.update_time = now()
+        # автоматически проставляем (обновляем) кол-во глав
+        self.chapters = len(os.listdir(os.getcwd() + '/' + self.text))
 
         super(Book, self).save(*args, **kwargs)
 
