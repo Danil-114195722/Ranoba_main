@@ -5,6 +5,11 @@
     <title>Каталог</title>
 </head>
 <body>
+    <a href="{% url 'main_page' %}">
+        <input type="submit" name="catalog" id="main_page" value="Главная"/>
+    </a>
+    <br><br>
+
     <ol>
         {% for book in all_books %}
             <li>

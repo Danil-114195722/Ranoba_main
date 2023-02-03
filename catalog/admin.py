@@ -26,7 +26,7 @@ class BookAdmin(admin.ModelAdmin):
     ]
     readonly_fields = [
         'update_time',
-        'cover_picture',
+        # 'cover_picture',
         'text',
     ]
 

@@ -40,7 +40,15 @@ class Book(models.Model):
     update_time = models.DateTimeField(default=now)
     year = models.IntegerField(null=True, blank=True)
     completeness = models.CharField(max_length=12, choices=COMPLETENESS_CHOICES, default=INC)
-    cover_picture = models.CharField(max_length=200)
+
+    # cover_picture = models.CharField(max_length=200)
+    # above change to under
+    cover_picture = models.ImageField(default='', upload_to=''
+        # upload_to = sub('\s+', '_', translit(title, reversed=True))
+        # os.getcwd() +
+    # "/cover_picture"
+    )
+
     genre = models.ManyToManyField(Genre)
     likes = models.IntegerField(default=0, validators=(
         MinValueValidator(0),
@@ -49,13 +57,13 @@ class Book(models.Model):
     def save(self, *args, **kwargs):
         self.translit_title = sub('\s+', '_', translit(self.title, reversed=True))
 
-        self.cover_picture = f'{self.translit_title}/cover_picture/cover_picture.jpg'
-        self.text = f'Books/{self.translit_title}/text'
-        self.update_time = now()
-
         try:
             os.makedirs(f"{os.getcwd()}/Books/{self.translit_title}/cover_picture")
             os.mkdir(f"{os.getcwd()}/Books/{self.translit_title}/text")
+
+            # self.cover_picture = f'{self.translit_title}/cover_picture/cover_picture.jpg'
+            self.text = f'Books/{self.translit_title}/text'
+            self.update_time = now()
         except:
             print('Such directory already exists')
 

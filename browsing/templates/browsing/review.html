@@ -8,13 +8,19 @@
     <title>{{ one_book.title }}</title>
 </head>
 <body>
+    <a href="{% url 'main_page' %}">
+        <input type="submit" name="catalog" id="main_page" value="Главная"/>
+    </a>
+    <br>
     <a href="{% url 'catalog' %}">
         <input type="submit" name="catalog" id="catalog" value="Каталог"/>
     </a>
 
     <h1>Книга "{{ one_book.title }}"</h1>
     <h3>Автор: {{ one_book.author }}</h3>
-    <img src="{% static 'Luchshij_rezhisser/cover_picture/luchshiy_rezhissyor.jpg' %}" alt="Обложка книги"/>
+<!--    <img src="{% static 'Luchshij_rezhisser/cover_picture/cover_picture.jpg' %}" alt="Обложка книги"/>-->
+    <img src="{{ book.cover_picture.url }}" alt="Обложка книги"/>
+<!--    <img src="{{ image }}" alt="Обложка книги"/>-->
 
     <h3>Жанр:</h3>
     <ul>
