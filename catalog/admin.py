@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.db.models import QuerySet
+from django.utils.safestring import mark_safe
 
 from . import models
 
@@ -24,10 +25,10 @@ class BookAdmin(admin.ModelAdmin):
         'likes',
     ]
     readonly_fields = [
-        'update_time',
+        'preview_picture',
         'chapters',
-        # 'cover_picture',
         'text',
+        'update_time',
     ]
 
     filter_horizontal = ['genre']
@@ -42,6 +43,11 @@ class BookAdmin(admin.ModelAdmin):
     search_fields = ['title', ]
     ordering = ['title', ]
     list_per_page = 25
+
+
+    def preview_picture(self, obj):
+        return mark_safe(f'<img src="{obj.cover_picture.url}"'
+                         f'style="max-height: 200px">')
 
     @admin.action(description='Сделать завершёнными')
     def make_complete(self, request, qset: QuerySet):

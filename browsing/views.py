@@ -20,12 +20,11 @@ def book_review(request):
 
     # экземпляр класса по названию книги
     one_book = models.Book.objects.get(title=book_title)
-
     # картинка
-    # image = File(open('/Books/' + re_sub('\s+', '_', translit(one_book.title, reversed=True)) + '/cover_picture/cover_picture.jpg', 'r'))
+    image = one_book.cover_picture.url
 
     data = {
-        # 'image': image,
+        'image': image,
         'one_book': one_book,
     }
 
