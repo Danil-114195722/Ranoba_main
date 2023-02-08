@@ -7,7 +7,9 @@ from bs4 import BeautifulSoup
 
 from django.core.files import File
 from django.shortcuts import render
+
 from catalog import models
+from Ranoba_main.settings import BASE_DIR
 
 
 # Create your views here.
@@ -55,7 +57,7 @@ def read(request):
 
     try:
         # берём суп файла с содержанием нужной главы
-        with open(f"{book.text}/Chapter{chapter}.html", "r") as chapter_text:
+        with open(f"{str(BASE_DIR)}/{book.text}/Chapter{chapter}.html", "r") as chapter_text:
             soup = BeautifulSoup(chapter_text.read(), 'html.parser')
 
     # если введён неверный номер главы (chapter)
@@ -64,7 +66,7 @@ def read(request):
         chapter = 1
 
         # берём суп файла с содержанием 1-й главы
-        with open(f"{book.text}/Chapter{chapter}.html", "r") as chapter_text:
+        with open(f"{str(BASE_DIR)}/{book.text}/Chapter{chapter}.html", "r") as chapter_text:
             soup = BeautifulSoup(chapter_text.read(), 'html.parser')
 
     # достаём чистый текст и название главы из файла
